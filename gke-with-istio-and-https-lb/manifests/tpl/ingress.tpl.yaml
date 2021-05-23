@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: default
+  namespace: istio-system
+  annotations:
+    kubernetes.io/ingress.allow-http: "false" # Allow only https connections
+    kubernetes.io/ingress.global-static-ip-name: ${ ip } # Put the global reserved address name created in 3rd step
+    ingress.gcp.kubernetes.io/pre-shared-cert: ${ cert_name }
+    ingress.kubernetes.io/enable-cors: "true"
+spec:
+  backend:
+    serviceName: istio-ingressgateway
+    servicePort: 80
+
+
